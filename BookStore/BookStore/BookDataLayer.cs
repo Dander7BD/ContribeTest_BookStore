@@ -23,6 +23,8 @@ namespace BookStore
 
                 public string Title { get { return this.title; } }
 
+                public bool InStock { get { return this.inStock > 0; } }
+
                 public bool IsInStock(int num)
                 {
                     return num <= this.inStock;

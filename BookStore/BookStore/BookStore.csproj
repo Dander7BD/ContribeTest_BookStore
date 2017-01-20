@@ -170,6 +170,9 @@
     <Content Include="Account\ResetPasswordConfirmation.aspx" />
     <Content Include="Account\TwoFactorAuthenticationSignIn.aspx" />
     <Content Include="Account\VerifyPhoneNumber.aspx" />
+    <Content Include="BookService.aspx">
+      <BrowseToURL>~/BookService</BrowseToURL>
+    </Content>
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -334,6 +337,13 @@
       <DependentUpon>VerifyPhoneNumber.aspx</DependentUpon>
     </Compile>
     <Compile Include="BookDataLayer.cs" />
+    <Compile Include="BookService.aspx.cs">
+      <DependentUpon>BookService.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BookService.aspx.designer.cs">
+      <DependentUpon>BookService.aspx</DependentUpon>
+    </Compile>
     <Compile Include="BookStoreAPI.cs" />
     <Compile Include="IBook.cs" />
     <Compile Include="IBookstoreService.cs" />

@@ -11,7 +11,8 @@ namespace BookStore
         string Title { get; }
         string Author { get; }
         decimal Price { get; }
+        bool InStock { get; }
 
-        Boolean IsInStock(int num);
+        bool IsInStock(int num);
     }
 }
