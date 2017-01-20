@@ -333,6 +333,10 @@
     <Compile Include="Account\VerifyPhoneNumber.aspx.designer.cs">
       <DependentUpon>VerifyPhoneNumber.aspx</DependentUpon>
     </Compile>
+    <Compile Include="BookDataLayer.cs" />
+    <Compile Include="BookStoreAPI.cs" />
+    <Compile Include="IBook.cs" />
+    <Compile Include="IBookstoreService.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="About.aspx.cs">
       <DependentUpon>About.aspx</DependentUpon>
