@@ -9,27 +9,43 @@ namespace BookStore
 {
     public partial class BookSearch : System.Web.UI.Page
     {
-        private string GetAllAsJson()
+        public struct Data
         {
-            IEnumerable<IBook> books = BookStoreAPI.GetService().GetBooksAsync().Result;
-
-            return Newtonsoft.Json.JsonConvert.SerializeObject( books );
+            public string elementID;
+            public IEnumerable<IBook> books;
         }
 
-        private string GetSearchAsJson(string search)
+        private string GetAllAsJson(string elementID)
         {
-            IEnumerable<IBook> books = BookStoreAPI.GetService().GetBooksAsync(search).Result;
+            Data response = new Data()
+            {
+                elementID = elementID,
+                books = BookStoreAPI.GetService().GetBooksAsync().Result
+            };
 
-            return Newtonsoft.Json.JsonConvert.SerializeObject( books );
+            return Newtonsoft.Json.JsonConvert.SerializeObject( response );
+        }
+
+        private string GetSearchAsJson(string elementID, string search)
+        {
+            Data response = new Data()
+            {
+                elementID = elementID,
+                books = BookStoreAPI.GetService().GetBooksAsync(search).Result
+            };
+
+            return Newtonsoft.Json.JsonConvert.SerializeObject( response );
         }
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            string search = Request["search"];
+            string search = Request["search"],
+                   elementID = Request["elementID"];
+
             if( search != null)
-                Response.Write( this.GetSearchAsJson( search ) );
+                Response.Write( this.GetSearchAsJson( elementID != null ? elementID : "", search ) );
             else
-                Response.Write( this.GetAllAsJson() );
+                Response.Write( this.GetAllAsJson( elementID != null ? elementID : "") );
         }
     }
 }
