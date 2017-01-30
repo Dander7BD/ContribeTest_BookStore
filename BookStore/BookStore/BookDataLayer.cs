@@ -82,6 +82,16 @@ namespace BookStore
                 return result;
             }
 
+            public List<IBook> GetAsIBooks(IDictionary<string, int> idQuantity)
+            {
+                List<IBook> result = new List<IBook>(idQuantity.Count);
+
+                foreach( var pair in idQuantity )
+                    result.Add( this.GetAsIBook(pair.Key, pair.Value) );
+
+                return result;
+            }
+
             public IBook GetAsIBook(string id, int quantity = 0)
             {
                 foreach( BookSchema book in this.books )
@@ -178,6 +188,41 @@ namespace BookStore
                 {
                     Console.WriteLine("WebException: http://www.contribe.se/arbetsprov-net/books.json is unavailable.");
                     return null;
+                }
+            } );
+            task.Start();
+            return task;
+        }
+
+        public Task<IEnumerable<IBook>> GetBookAsync(IDictionary<string, int> idQuantity)
+        {
+            Task < IEnumerable < IBook >> task = new Task<IEnumerable<IBook>>( delegate
+            {
+                try
+                {
+                    if(idQuantity.Count > 0)
+                    {
+                        DataSchema data;
+                        HttpWebRequest request = WebRequest.Create( "http://www.contribe.se/arbetsprov-net/books.json" ) as HttpWebRequest;
+
+                        using( WebResponse response = request.GetResponse() )
+                        {
+                            Stream stream = response.GetResponseStream();
+                            StreamReader reader = new StreamReader(stream);
+                            data = JsonConvert.DeserializeObject<DataSchema>( reader.ReadToEnd() );
+                        }
+                        List<IBook> result = data.GetAsIBooks(idQuantity);
+                        result.Sort();
+
+                        return result;
+                    }
+                    else
+                        return new List<IBook>();
+                }
+                catch( WebException )
+                {
+                    Console.WriteLine("WebException: http://www.contribe.se/arbetsprov-net/books.json is unavailable.");
+                    return new List<IBook>();
                 }
             } );
             task.Start();

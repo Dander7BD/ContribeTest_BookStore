@@ -2,6 +2,7 @@
 
 <div id="<%= this.ID %>" class="shopping-cart">
     <div class="basket"></div>
+    Sum: <div class="sum"></div>
     <div class="template">
         <div class="cart-item">
             <div class="title"></div>

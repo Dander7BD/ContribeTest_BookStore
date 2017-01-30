@@ -35,6 +35,17 @@ namespace BookStore
             } );
         }
 
+        private static string GetAsJson(string callerID, IDictionary<string, int> d)
+        {
+            Data response = new Data()
+            {
+                callerID = callerID,
+                books = BookStoreAPI.GetService().GetBookAsync( d ).Result
+            };
+
+            return AsJson( response );
+        }
+
         private static string GetAllAsJson(string callerID)
         {
             Data response = new Data()
@@ -62,14 +73,14 @@ namespace BookStore
             string action = Request["action"],
                    callerID = Request["callerID"];
             if( action == null ) return;
-            else action = action.ToLower(); 
+            else action = action.ToLower();
             if( callerID == null ) callerID = "";
 
             if( action.Equals( "search" ) )
             {
                 string search = Request["search"];
 
-                if( search == null || search.Equals(""))
+                if( search == null || search.Equals( "" ) )
                     Response.Write( GetAllAsJson( callerID ) );
                 else
                     Response.Write( GetSearchAsJson( callerID, search ) );
@@ -81,9 +92,27 @@ namespace BookStore
 
                 if( bookID != null && int.TryParse( Request["quantity"], out quantity ) )
                 {
-                    //todo: update session data
+                    if( Session[callerID] == null && quantity > 0 )
+                        Session[callerID] = new Dictionary<string, int>();
+
+                    //<"bookID", quantity>
+                    IDictionary<string, int> d = Session[callerID] as IDictionary<string, int>;
+
+                    if( quantity > 0 )
+                        d[bookID] = quantity;
+                    else
+                        d.Remove( bookID );
+
                     Response.Write( GetAsJson( callerID, bookID, quantity ) );
                 }
+            }
+            else if( action.Equals( "get-shopping-cart-items" ) )
+            {
+                IDictionary<string, int> d = Session[callerID] as IDictionary<string, int>;
+                if( d == null )
+                    d = new Dictionary<string, int>();
+
+                Response.Write( GetAsJson( callerID, d ) );
             }
         }
     }

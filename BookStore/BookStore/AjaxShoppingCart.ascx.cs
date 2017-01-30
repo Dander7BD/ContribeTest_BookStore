@@ -20,7 +20,6 @@ namespace BookStore
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            // todo: prebuild cart item list from session data
         }
     }
 }
