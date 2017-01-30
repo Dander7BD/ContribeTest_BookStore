@@ -4,33 +4,31 @@
     {
         $.ajax({
             url: '/bookservice/',
-            data: { elementID: $(this).parent().attr('id'), search: $(this).val() },
+            data:
+            {
+                action: 'search',
+                callerID: $(this).parent().attr('id'),
+                search: $(this).val()
+            },
             type: 'get',
             dataType: 'json',
             success: function (feed)
             {
-                var element = $('#' + feed.elementID);
-                var output = element.children('.response');
-                var template = element.children('.template');
+                var caller = $('#' + feed.callerID);
+                var output = caller.children('.response');
+                var template = caller.children('.template');
 
                 output.empty();
                 $(feed.books).each(function ()
                 {
-                    console.log('Title: ' + this.Title);
-                    
                     var item = $(template.html());
                     item.find('.title').html(this.Title);
                     item.find('.author').html(this.Author);
                     item.find('.price').html(this.Price);                    
-                    if (!this.InStock) item.addClass('missing-in-stock');
+                    item.find('.id').html(this.ID);
+                    if (!this.InStock) item.addClass('stock-shortage');
                     output.append(item);
-
-                    //var staff = staffList.find('.staff' + data.find('id').text());
-                    //staff.find('.name').text(data.find('name').text());
                 });                
-
-                console.log(feed.elementID + ': Book search feed is succesfully received.');
-
             },
             error: function () { console.log('Book search feed is unavailable.'); },        
         });

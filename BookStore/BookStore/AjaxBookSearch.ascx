@@ -9,6 +9,7 @@
             <div class="title"></div>
             <div class="author"></div>
             <div class="price"></div>
+            <div class="id"></div>
         </div>
     </div>
 </div>

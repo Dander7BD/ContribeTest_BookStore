@@ -10,5 +10,6 @@ namespace BookStore
     {
         Task<IEnumerable<IBook>> GetBooksAsync();
         Task<IEnumerable<IBook>> GetBooksAsync(string searchString);
+        Task<IBook> GetBookAsync(string id, int quantity);
     }
 }

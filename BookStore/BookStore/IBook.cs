@@ -8,11 +8,10 @@ namespace BookStore
 {
     public interface IBook : IComparable<IBook>
     {
+        string ID { get; }
         string Title { get; }
         string Author { get; }
         decimal Price { get; }
         bool InStock { get; }
-
-        bool IsInStock(int num);
     }
 }
