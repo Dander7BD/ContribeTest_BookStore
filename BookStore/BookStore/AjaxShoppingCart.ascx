@@ -1,6 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AjaxShoppingCart.ascx.cs" Inherits="BookStore.AjaxShoppingCart" %>
 
 <div id="<%= this.ID %>" class="shopping-cart">
+    <div class="title">Shopping Cart</div>
     <div class="basket"></div>
     Sum: <div class="sum"></div>
     <div class="template">

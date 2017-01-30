@@ -7,6 +7,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Contribe test submission</title>
+    <link rel="stylesheet" type="text/css" href="Content/Site.css" />
 </head>
 <body runat="server">
     <form id="MainContent" runat="server">

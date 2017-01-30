@@ -63,7 +63,7 @@
                     }
                     else if (item.length > 0)
                     { // remove item from cart without actually removing it as Reference
-                        item.addClass('remove');
+                        item.addClass('removed');
                         item.find('.price-sum').html((0).toFixed(2).toString());
                     }
                 }

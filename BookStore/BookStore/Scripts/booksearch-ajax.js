@@ -24,7 +24,7 @@
                     var item = $(template.html());
                     item.find('.title').html(this.Title);
                     item.find('.author').html(this.Author);
-                    item.find('.price').html(this.Price);                    
+                    item.find('.price').html(parseFloat(this.Price).toFixed(2).toString());                    
                     item.find('.id').html(this.ID);
                     if (!this.InStock) item.addClass('stock-shortage');
                     output.append(item);
