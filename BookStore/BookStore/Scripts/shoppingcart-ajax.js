@@ -81,7 +81,7 @@
         var quantity = 1;
         var item = $('#' + event.data).find('.id:contains("' + itemID + '")');
         if (item.length > 0)
-            quantity += parseInt(item.parent('.book-item').find('.quantity').val(), 10);
+            quantity += parseInt(item.parent('.cart-item').find('.quantity').val(), 10);
 
         updateCartItem(itemID, quantity.toString(), event.data);
     }
